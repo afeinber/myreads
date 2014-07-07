@@ -41,6 +41,9 @@ group :test do
   gem 'poltergeist'
   gem 'shoulda-matchers'
 end
+
+gem 'amazon-ecs'
+gem 'dotenv-rails', groups: [:development, :test]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
