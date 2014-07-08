@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2 class="text-center">Find A User</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <%= form_tag users_path, method: 'get', role: "form" do%>
+        <div class="input-group" style="padding-top: 20px;">
+          <%= text_field_tag :search_user, params[:search_user], class: "form-control", placeholder: "Find A User" %>
+          <span class="input-group-btn">
+            <%= submit_tag "Go!", name: nil, class: "btn btn-default" %>
+          </span>
+        </div>
+      <% end %>
+  </div>
+</div>
+
+<% if @users.present? %>
+  <div class="spacer50"> </div>
+  <%= render partial: "user", collection: @users %>
+<% end %>

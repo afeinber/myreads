@@ -2,7 +2,7 @@
 <html>
 <head>
 
-  <title>Mybooks</title>
+  <title>MyReads</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -24,20 +24,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+
+        <li><%= link_to 'Find User', users_path %> </li>
+
       </ul>
       <%= form_tag books_path, method: 'get', class: "navbar-form navbar-left", role: "search" do%>
         <div class="form-group">
@@ -48,19 +37,35 @@
       <% end %>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Link</a></li>
-        <% if user_signed_in? %>
-        <li><p class="navbar-text"> Logged in as <strong><%= current_user.username %></strong>.</p> </li>
-        <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
-        <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
-        <% else %>
-        <li><%= link_to "Sign up", new_user_registration_path %> </li>
-        <li> <%= link_to "Login", new_user_session_path %> </li>
-        <% end %>
+
+
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong><%= user_signed_in? ? current_user.username : "Profile" %> <span class="caret"></span></strong></a>
+          <ul class="dropdown-menu" role="menu">
+            <% if user_signed_in? %>
+              <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
+              <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+            <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path %> </li>
+              <li> <%= link_to "Login", new_user_session_path %> </li>
+            <% end %>
+
+            <li class="divider"></li>
+            <li><%= link_to "ToRead", user_path(current_user) if user_signed_in?%></li>
+            <li><%= link_to "ToRead", new_user_session_path unless user_signed_in?%></li>
+          </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <div class="container">
+ <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <%= bootstrap_flash %>
+    </div>
+  </div>
   <%= yield %>
 </div>
 </body>
