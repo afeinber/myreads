@@ -6,7 +6,10 @@ class Book < ActiveRecord::Base
   validates :title, :asin, presence: true
 
   def self.top_ten
-    self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}[0..9]
+    self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}.reverse[0..9]
   end
 
+  def most_recent_comment
+    self.comments.to_a.sort_by!(&:created_at).last
+  end
 end

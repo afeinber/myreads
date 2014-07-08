@@ -3,7 +3,7 @@ res = Amazon::Ecs.item_search('ruby', {:response_group => 'Medium'})
 res.items.each do |item|
   authors = []
   books << new_book = Book.create!(
-    photo: item.get_hash('LargeImage')["URL"],
+    photo: item.get_hash('MediumImage')["URL"],
     title: item.get('ItemAttributes/Title'),
     published_on: item.get('ItemAttributes/PublicationDate'),
     asin: item.get('ASIN')
@@ -20,3 +20,7 @@ res.items.each do |item|
 
   new_book.save
 end
+alex = User.new(username:'Alex', email: 'alex@example.com', password: 'password')
+a_book = Book.first
+Comment.create(user: alex, book: a_book, content: 'Old content')
+@com2 = Comment.create(user: alex, book: a_book, content: 'New content')

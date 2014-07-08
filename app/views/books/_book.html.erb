@@ -6,7 +6,10 @@
       </div>
       <div class="col-md-6">
         <h4> <%= book.title %> </h4> <br>
-        <%= book.authors.map(&:name).join(', ') %>
+        <%= book.authors.map(&:name).join(', ') %> <br>
+        <% if book.comments.count > 0 %>
+          <%= book.most_recent_comment.content %> says <%= book.most_recent_comment.user.username %>
+        <% end %>
       </div>
     </div>
   </div>

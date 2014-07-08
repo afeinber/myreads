@@ -1,0 +1,131 @@
+Whvueb U'm a guest user
+When U go to the home page
+I should see the last 10 relaesed movies.
+
+Given I'm a guest user
+When I go to the home page
+I shoulf be able to navigate to the older movies in groups of 10
+
+Given I'm a guest user
+When I view one movie on the home page
+I can see the titke, release year, short description, rating and duration.
+
+Given I'm a giest user
+When I biew one movie on the home page
+Then I can view an image of the movie.
+
+Given I'm a guest user
+WHen I view one movie on the home page
+Then I can see a trailer of the movie
+
+Send activation email?
+
+If someone is following you you can send them a reccomendation.
+comments (viewable on a book's page)
+everytime a user adds a book to their list, it creates a new book object.
+also need  ListedBook (many-to-many)
+can request people to follow you so you can exchange recommendations.
+follow is an object
+
+Search by title or author. When you view a book you can click on the author's name
+and it will search by that author.
+
+
+user stories, data scheme, wireframe
+
+Wireframing.
+
+
+As a guest user
+When I visit the home page
+I should see the most added books, with a picture, an author, the publication date, and the number of reads
+and the amazon score
+
+As a signed in user
+On the homepage
+I should see my followed users most recently added books (15)
+
+As anybody
+When I visit the home page
+I should see a button next to each book with a link to add it to your ToRead list
+
+As anybody
+When I visit the home page
+Next to each book listed
+I should see the most recent comment by a user
+
+
+As anybody
+On any page,
+I should see a box in which to search for books by either author or title
+
+As anybody
+on any page
+I should see a find a user button which links to Find User page
+
+As anybody
+on the Find a User page
+I should see the top 15 users by number of books read.
+
+As anybody
+on the Find a User page
+I should be able to search for users by their username
+
+As anybody
+on the Find a User page
+For each user their should be a button to follow that user.
+
+As a guest user
+When I try to add follow someone
+I should be redirected to a sign in screen.
+
+As a signed in user
+I can follow someone from this page.
+
+As a signed in user
+when I follow someone
+and view their To Read list
+their is a button I can click to request them to follow me
+
+As a signed in user
+when someone asks me to follow them
+There is a notification in the nav bar.
+
+As anybody
+on the find a user page
+the listed users have a username and thumbnails of their 3 most recently read books.
+
+
+As a guest
+on any page
+I should see links to log in or sign up
+
+As a user,
+on any page,
+I should see a link to take me to my to read list.
+
+As a signed in user
+on my to read page
+I should see options to mark a book as read.
+
+As a signed in user
+on my to read page
+I can reorder my books
+
+As a signed in user
+When I mark a book as read
+I should be prompted to put in a comment on the book
+
+As a signed in user
+on my to read page
+there should be a tab icon to take me to my read books
+
+As anybody
+When I view the page of a specific book
+I should be able to see the photo
+author
+title
+publication date
+10 most recent comments
+number of reads
+recommend to (plus a list of all your followers)
