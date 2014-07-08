@@ -46,7 +46,7 @@ end
 gem 'amazon-ecs'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'bootstrap-sass', '~> 3.2.0'
-
+gem 'rails_12factor', group: :production
 gem 'autoprefixer-rails'
 gem 'devise'
 # Use ActiveModel has_secure_password
