@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
   def index
-    @books = Book.top_ten
+    @books = Book.search(params[:search])
   end
 end
