@@ -1,0 +1,13 @@
+<div class="row book">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="col-md-3">
+        <%= image_tag(book.photo, class: "img-responsive", alt: "Responsive image") %>
+      </div>
+      <div class="col-md-6">
+        <h4> <%= book.title %> </h4> <br>
+        <%= book.authors.map(&:name).join(', ') %>
+      </div>
+    </div>
+  </div>
+</div>

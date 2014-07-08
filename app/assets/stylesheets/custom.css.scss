@@ -1,0 +1,19 @@
+@import "bootstrap";
+@import "bootstrap-sprockets";
+
+.crop-height {
+  /* max-width: 1200px; /* img src width (if known) */
+  max-height: 320px;
+  overflow: hidden;
+}
+
+img.scale {
+  /* corrects inline gap in enclosing div */
+  display: block;
+  max-height: 100%;
+  /* just in case, to force correct aspect ratio */
+  width: auto !important;
+  height: auto\9; /* ie8+9 */
+  /* lt ie8 */
+  -ms-interpolation-mode: bicubic;
+}
