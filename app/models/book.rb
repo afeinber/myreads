@@ -33,10 +33,10 @@ class Book < ActiveRecord::Base
     self.comments.to_a.sort_by!(&:created_at).last
   end
 
-  def self.search(search)
+  def self.search(search, search_method)
     if search
       books = []
-      res = Amazon::Ecs.item_search(search, {:response_group => 'Medium'})
+      res = Amazon::Ecs.item_search('', {:response_group => 'Medium', search_method.downcase.to_sym => search})
       res.items.each do |item|
         books << item.to_book
       end
