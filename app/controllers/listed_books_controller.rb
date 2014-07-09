@@ -1,17 +1,18 @@
 class ListedBooksController < ApplicationController
 
   def create
-    @book = Book.from_amazon_element(
-      Amazon::Ecs.item_lookup(params[:asin],
-      {:response_group => 'Medium'}).items.first
-    ) unless (@book = Book.find_by(asin: params[:asin])).present?
+    @book = Book.get_book(params[:asin])
     @listed_book = ListedBook.new
     @listed_book.user = current_user
     @listed_book.book = @book
     @listed_book.order_index = 0
 
     @listed_book.reorder_books
-    @listed_book.save
+    if @listed_book.save
+      flash[:notice] = "#{@listed_book.book.title} added to your MyReads."
+    else
+      flash[:alert] = 'Error: ' + @listed_book.errors.full_messages.join(', ')
+    end
 
     redirect_to :back
   end

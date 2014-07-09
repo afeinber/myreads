@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= image_tag(@book.large_photo, class: "img-responsive text-left", alt: "Responsive image", style: "margin-left: -95px;") %>
+  </div>
+  <div class="col-md-9">
+    <h1 class="text-center"><%= @book.title %></h1> <br>
+    <h2 class="text-center"><%= @book.authors.map(&:name).join(', ') %></h2> <br>
+    <h4 class="text-center"><%= @book.published_on %></h4>
+  </div>
+</div>
+
+<div class="row">
+  <h3 class="text-center">Comments</h3>
+</div>
+
+<%= render partial: "comment", collection: @book.comments %>
+

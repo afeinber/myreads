@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :listed_books, only: [:create]
 
+  get 'books/:asin', to: 'books#show'
+
 
   root 'books#index'
 end

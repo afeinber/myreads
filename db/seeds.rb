@@ -6,7 +6,9 @@ res.items.each do |item|
     photo: item.get_hash('MediumImage')["URL"],
     title: item.get('ItemAttributes/Title'),
     published_on: item.get('ItemAttributes/PublicationDate'),
-    asin: item.get('ASIN')
+    asin: item.get('ASIN'),
+    large_photo: item.get_hash('LargeImage')["URL"]
+
   )
   new_book.save
   authors += item.get_element('ItemAttributes').get_array('Author')

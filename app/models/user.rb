@@ -36,5 +36,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def does_not_have(book)
+    !self.books.map(&:asin).include?(book.asin)
+  end
+
 
 end

@@ -38,6 +38,15 @@ feature 'user adds book' do
   end
 
   scenario 'but already had this book' do
+    visit root_path
+    sign_in_as(create(:user))
+    visit root_path
+    within('.book', text: @books.first.title) do
+      click_button 'Add to MyReads'
+    end
+    visit root_path
+    within('.book', text: @books.first.title) do
+      expect(page).to have_no_button 'Add to MyReads'
+    end
   end
-
 end
