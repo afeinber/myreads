@@ -11,6 +11,11 @@
           <%= book.most_recent_comment.content %> says <%= book.most_recent_comment.user.username %>
         <% end %>
       </div>
+      <div class="col-md-3">
+
+        <%= button_to "Add to MyReads", listed_books_path(asin: book.asin), class: "btn btn-default" if user_signed_in? && current_user.does_not_have(book) %>
+        <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" unless user_signed_in? %>
+      </div>
     </div>
   </div>
 </div>
