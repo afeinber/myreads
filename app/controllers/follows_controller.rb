@@ -9,4 +9,10 @@ class FollowsController < ApplicationController
     @follow.save
     redirect_to :back
   end
+
+  def destroy
+    @follow = current_user.follows.find_by(followee_id: params[:followee_id])
+    @follow.destroy
+    redirect_to :back
+  end
 end

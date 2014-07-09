@@ -7,8 +7,14 @@ class Book < ActiveRecord::Base
 
   NO_IMAGE = "http://g-ecx.images-amazon.com/images/G/01/x-site/icons/no-img-lg._V192198896_BO1,204,203,200_.gif"
 
-  def self.top_ten
-    self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}.reverse[0..9]
+  def self.top_ten(user)
+    unless user.present?
+      self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}.reverse[0..9]
+    else
+      comments = []
+      user.followees.each { |user| comments += user.comments}
+      comments.to_a.sort_by(&:created_at).reverse.map(&:book).uniq
+    end
   end
 
   def most_recent_comment
@@ -27,13 +33,13 @@ class Book < ActiveRecord::Base
 
     authors = element.get_element('ItemAttributes').get_array('Author')
     authors.each do |author|
-      as_a_book.authors.new(name:author)
+      as_a_book.authors. << Author.get_author(author)
     end
 
     as_a_book
   end
 
-  def self.search(search, search_method)
+  def self.search(search, search_method, user)
     if search
 
       books = []
@@ -44,7 +50,7 @@ class Book < ActiveRecord::Base
       end
       books
     else
-      self.top_ten
+      self.top_ten(user)
     end
   end
 
