@@ -1,6 +1,6 @@
-<div class="row book">
+<div class="row">
   <div class="panel panel-default">
-    <div class="panel-body">
+    <div class="panel-body book">
       <div class="col-md-3">
         <%= image_tag(book.photo, class: "img-responsive", alt: "Responsive image") %>
       </div>
@@ -10,6 +10,10 @@
         <% if book.comments.count > 0 %>
           <%= book.most_recent_comment.content %> says <%= book.most_recent_comment.user.username %>
         <% end %>
+      </div>
+      <div class="col-md-3">
+        <%= button_to "Add to MyReads", listed_books_path(asin: book.asin) if user_signed_in? %>
+        <%= button_to "Add to MyReads", new_user_session_path unless user_signed_in? %>
       </div>
     </div>
   </div>
