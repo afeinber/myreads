@@ -6,6 +6,11 @@
       </div>
       <div class="panel-footer">
         Says <%= comment.user.username %> on <%= comment.created_at %>
+        <% if current_user == comment.user %>
+          <%= link_to book_comment_path(comment.book, comment), method: :delete, class: "btn btn-danger btn-sm pull-right", style: "margin-top: -5px;" do %>
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          <%end %>
       </div>
     </div>
   </div>
