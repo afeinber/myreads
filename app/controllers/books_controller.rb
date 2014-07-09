@@ -6,5 +6,6 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.get_book(params[:asin])
+    @comment = Comment.new
   end
 end
