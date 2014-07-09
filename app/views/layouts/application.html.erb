@@ -54,6 +54,8 @@
             <li class="divider"></li>
             <li><%= link_to "ToRead", user_path(current_user) if user_signed_in?%></li>
             <li><%= link_to "ToRead", new_user_session_path unless user_signed_in?%></li>
+            <li><%= link_to "MyReaders", users_path(only_follow: true) if user_signed_in?%></li>
+            <li><%= link_to "MyReaders", new_user_session_path unless user_signed_in?%></li>
           </ul>
         </li>
       </ul>

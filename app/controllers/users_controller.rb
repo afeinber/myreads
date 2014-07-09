@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show]
 
   def index
-    @users = User.search(params[:search_user])
+    unless params[:only_follow]
+      @users = User.search(params[:search_user])
+    else
+      @users = current_user.followees
+    end
   end
 
   def show

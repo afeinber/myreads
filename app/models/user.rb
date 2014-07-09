@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :books, through: :listed_books
   has_many :listed_books
+  has_many :follows
+  has_many :followees, through: :follows
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -26,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
   def self.search(search)
-    if search
+    if search.present?
       users = []
       users += User.where('email ILIKE ?', search).to_a
       users += User.where('username ILIKE ?', search).to_a
