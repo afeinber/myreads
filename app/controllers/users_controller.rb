@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user_books = current_user.books
+
+    @user_books = current_user.listed_books.order(:order_index).to_a.map(&:book)
   end
 
 end
