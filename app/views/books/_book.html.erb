@@ -8,7 +8,8 @@
         <h4> <%= link_to book.title, "/books/#{book.asin}" %> </h4> <br>
         <%= book.authors.map(&:name).join(', ') %> <br>
         <% if book.comments.count > 0 %>
-          <%= book.most_recent_comment.content %> says <%= book.most_recent_comment.user.username %>
+          <% @comment = book.most_recent_comment(current_user) %>
+          <%= @comment.content %> says <%= @comment.user.username%>
         <% end %>
       </div>
       <div class="col-md-3">

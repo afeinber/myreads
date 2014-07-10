@@ -17,8 +17,14 @@ class Book < ActiveRecord::Base
     end
   end
 
-  def most_recent_comment
-    self.comments.to_a.sort_by!(&:created_at).last
+  def most_recent_comment(user)
+    unless user.present?
+      self.comments.to_a.sort_by!(&:created_at).last
+    else
+      comments = []
+      user.followees.each { |user| comments += user.comments}
+      comments.select { |comment| comment.book == self }.sort_by(&:created_at).first
+    end
   end
 
   def self.from_amazon_element(element)
