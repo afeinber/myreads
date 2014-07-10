@@ -59,5 +59,9 @@ class User < ActiveRecord::Base
     self.followees.to_a.select { |followee| followee.is_following?(self) }
   end
 
+  def has_recommended?(book, user)
+    self.recommendations.find_by(book: book, recipient: user).present?
+  end
+
 
 end

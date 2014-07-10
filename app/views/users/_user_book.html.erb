@@ -23,7 +23,7 @@
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
             <% user.mutual_follows.each do |followee| %>
-              <li role="presentation"><%= link_to followee.username, recommendations_path(recipient: followee, book: user_book), method: :post, role: 'menuitem', tabindex: '-1' %> </li>
+              <li role="presentation"><%= link_to(followee.username, recommendations_path(recipient: followee, book: user_book), method: :post, role: 'menuitem', tabindex: '-1') unless current_user.has_recommended?(user_book, followee) %> </li>
             <% end %>
           </ul>
         </div>
