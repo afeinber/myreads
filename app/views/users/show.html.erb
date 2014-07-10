@@ -10,7 +10,7 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <% unless current_user.requested_user?(@user)%>
-            <li><%= link_to"Request Follow", user_requests_path(@user), method: :post %></li>
+            <li><%= link_to("Request Follow", user_requests_path(@user), method: :post) unless @user.is_following?(current_user) %></li>
           <% else %>
             <li><%= link_to "Delete Request", user_request_path(current_user, @user), method: :delete %> </li>
           <% end %>

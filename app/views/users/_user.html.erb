@@ -2,15 +2,14 @@
   <div class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
       <div class="panel-body">
-         <%= link_to user.username + ' ' + user.email, user_path(user) %>
+       <%= link_to user.username + ' ' + user.email, user_path(user) %>
 
-          <% if user_signed_in? && !current_user.followees.include?(user) %>
-            <%= button_to "Follow", user_follows_path(user), class: "btn btn-primary pull-right"%>
-          <% elsif user_signed_in? && current_user != user %>
-             <%= button_to "Following", user_follows_path(user), disabled: "disabled", class: "btn btn-success pull-right" %>
-          <% end %>
-
-
+        <% if user_signed_in? && !current_user.followees.include?(user) %>
+          <%= button_to "Follow", user_follows_path(user), class: "btn btn-primary pull-right" %>
+          <%= button_to("Ignore", user_request_path(user, current_user), method: :delete, class: "btn btn-danger pull-right") if user.requested_user?(current_user) %>
+        <% elsif user_signed_in? && current_user != user %>
+           <%= button_to "Following", user_follows_path(user), disabled: "disabled", class: "btn btn-success pull-right" %>
+        <% end %>
       </div>
     </div>
   </div>

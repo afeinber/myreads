@@ -49,5 +49,9 @@ class User < ActiveRecord::Base
     self.requests.map(&:recipient).include?(user)
   end
 
+  def is_following?(user)
+    self.follows.find_by(followee: user).present?
+  end
+
 
 end
