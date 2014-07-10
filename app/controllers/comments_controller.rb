@@ -5,7 +5,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
-    @comment.book = Book.find(params[:book_id])
+    @book = Book.get_book(params[:asin])
+
+    @comment.book = @book
 
     flash[:alert] = @comment.errors.full_messages.join(', ') unless @comment.save
     redirect_to :back
