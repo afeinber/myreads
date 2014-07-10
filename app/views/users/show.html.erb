@@ -4,7 +4,19 @@
   </div>
   <div class="col-md-2">
     <% if user_signed_in? && current_user.followees.include?(@user) %>
-      <%= button_to("Unfollow", user_follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger btn-lg pull-right')  %>
+      <div class="btn-group pull-right">
+        <button type="button" class="btn btn-success btn-lg dropdown-toggle" data-toggle="dropdown">
+          Following <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <% unless current_user.requested_user?(@user)%>
+            <li><%= link_to"Request Follow", user_requests_path(@user), method: :post %></li>
+          <% else %>
+            <li><%= link_to "Delete Request", user_request_path(current_user, @user), method: :delete %> </li>
+          <% end %>
+          <li><%= link_to("Unfollow", user_follow_path(followee_id: @user.id), method: :delete)  %></li>
+        </ul>
+      </div>
     <% elsif user_signed_in? && @user != current_user %>
       <%= button_to("Follow", user_follows_path(@user), class: 'btn btn-primary btn-lg pull-right')  %>
     <% end %>

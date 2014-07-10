@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-
-
 feature 'user views an individual book' do
 
   background do

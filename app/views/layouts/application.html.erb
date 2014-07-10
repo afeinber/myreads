@@ -41,7 +41,7 @@
 
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong><%= user_signed_in? ? current_user.username : "Profile" %> <span class="caret"></span></strong></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><strong><% if user_signed_in? && (@num_reqs = current_user.inverse_requests.count) > 0 %><span class="badge"><%= @num_reqs %></span> <% end %> <%= user_signed_in? ? current_user.username : "Profile" %> <span class="caret"></span></strong></a>
           <ul class="dropdown-menu" role="menu">
             <% if user_signed_in? %>
               <li><%= link_to 'Edit profile', edit_user_registration_path %> </li>
@@ -56,6 +56,8 @@
             <li><%= link_to "ToRead", new_user_session_path unless user_signed_in?%></li>
             <li><%= link_to "MyReaders", users_path(only_follow: true) if user_signed_in?%></li>
             <li><%= link_to "MyReaders", new_user_session_path unless user_signed_in?%></li>
+            <li><%= link_to "MyMessages", user_requests_path(current_user) if user_signed_in?%></li>
+            <li><%= link_to "MyMessages", new_user_session_path unless user_signed_in?%></li>
           </ul>
         </li>
       </ul>

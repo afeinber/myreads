@@ -1,6 +1,6 @@
 class Book < ActiveRecord::Base
-  has_many :comments
-  has_many :contributions
+  has_many :comments, dependent: :destroy
+  has_many :contributions, dependent: :destroy
   has_many :authors, through: :contributions
 
   validates :title, :asin, presence: true

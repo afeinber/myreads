@@ -1,11 +1,14 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :books, through: :listed_books
-  has_many :listed_books
-  has_many :follows
+  has_many :listed_books, dependent: :destroy
+  has_many :follows, dependent: :destroy
   has_many :followees, through: :follows
+  has_many :requests, dependent: :destroy
+  has_many :recipients, through: :requests
+  has_many :inverse_requests, class_name: 'Request', foreign_key: 'recipient_id'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -40,6 +43,10 @@ class User < ActiveRecord::Base
 
   def does_not_have(book)
     !self.books.map(&:asin).include?(book.asin)
+  end
+
+  def requested_user?(user)
+    self.requests.map(&:recipient).include?(user)
   end
 
 

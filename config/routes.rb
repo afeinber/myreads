@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:index, :show] do
     resources :follows, only: [:create]
+    resources :requests, only: [:create, :destroy, :index]
   end
   resources :listed_books, only: [:create]
 

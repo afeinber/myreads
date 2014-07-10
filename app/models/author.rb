@@ -1,5 +1,5 @@
 class Author < ActiveRecord::Base
-  has_many :contributions
+  has_many :contributions, dependent: :destroy
   has_many :books, through: :contributions
 
   validates! :name, uniqueness: true
