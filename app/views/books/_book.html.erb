@@ -7,7 +7,7 @@
       <div class="col-md-6">
         <h4> <%= link_to book.title, "/books/#{book.asin}" %> </h4> <br>
         <%= book.authors.map(&:name).join(', ') %> <br>
-        <% if @comment = book.most_recent_comment(current_user).present? %>
+        <% if (@comment = book.most_recent_comment(current_user)).present? %>
 
           <!-- I pass in the current user here so that it will only show comments
           from users that the current user is following -->

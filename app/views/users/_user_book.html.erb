@@ -7,7 +7,7 @@
       <div class="col-md-6">
         <h4> <%= user_book.title %> </h4> <br>
         <%= user_book.authors.map(&:name).join(', ') %> <br>
-        <% if @comment = user_book.most_recent_comment(current_user).present? %>
+        <% if @comment = (user_book.most_recent_comment(current_user)).present? %>
           <%= @comment.content %> says <%= @comment.user.username %>
         <% end %>
       </div>
