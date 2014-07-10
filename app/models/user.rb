@@ -7,8 +7,10 @@ class User < ActiveRecord::Base
   has_many :follows, dependent: :destroy
   has_many :followees, through: :follows
   has_many :requests, dependent: :destroy
+  has_many :recommendations, dependent: :destroy
   #has_many :recipients, through: :requests
-  has_many :inverse_requests, class_name: 'Request', foreign_key: 'recipient_id'
+  has_many :inverse_requests, class_name: 'Request', foreign_key: 'recipient_id', dependent: :destroy
+  has_many :inverse_recommendations, class_name: 'Recommendation', foreign_key: 'recipient_id', dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

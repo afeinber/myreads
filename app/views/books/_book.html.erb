@@ -12,13 +12,16 @@
           <!-- I pass in the current user here so that it will only show comments
           from users that the current user is following -->
 
-          <%= @comment.content %> says <%= @comment.user.username%>
+          <%= @comment.content %> says <%= @comment.user.username %>
         <% end %>
+        <%= "Recommended by: #{recommender.username}" if defined?(recommender).present? %>
+
       </div>
       <div class="col-md-3">
-
-        <%= button_to "Add to MyReads", listed_books_path(asin: book.asin), class: "btn btn-default" if user_signed_in? && current_user.does_not_have(book) %>
-        <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" unless user_signed_in? %>
+        <% if defined?(recommender).present? %> <div class="btn-group"> <% end %>
+        <%= button_to "Add to MyReads", listed_books_path(asin: book.asin), class: "btn btn-success" if user_signed_in? && current_user.does_not_have(book) %>
+        <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-success" unless user_signed_in? %>
+        <% button_to "Ignore request", recommendation_delete_path(user: recommender, recipient: current_user, book: book), method: :delete, class: "btn btn-danger" unless user_signed_in? if defined?(recommender).present? %>
       </div>
     </div>
   </div>

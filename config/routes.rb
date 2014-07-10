@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   delete 'follows', to: 'follows#destroy', as: 'user_follow'
   post 'books/comments/:asin', to: 'comments#create', as: 'books_comment'
   delete 'requests', to: 'requests#destroy', as: 'request_delete'
+  delete 'recommendations', to: 'recommendations#destroy', as: 'recommendation_delete'
   root 'books#index'
 end
