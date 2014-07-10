@@ -7,4 +7,13 @@ module SessionHelpers
     fill_in 'Password', with: user.password
     click_button 'Sign in'
   end
+
+  def add_book
+    visit root_path
+    fill_in "Search", with: "Harry Potter"
+    click_button 'Search'
+    within(".book", text: "Harry Potter and the Sorcerer's Stone") do
+      click_button 'Add to MyReads'
+    end
+  end
 end

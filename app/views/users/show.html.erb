@@ -10,9 +10,9 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <% unless current_user.requested_user?(@user)%>
-            <li><%= link_to("Request Follow", user_requests_path(@user), method: :post) unless @user.is_following?(current_user) %></li>
+            <li><%= link_to("Request Follow", requests_path(recipient_id: @user), method: :post) unless @user.is_following?(current_user) %></li>
           <% else %>
-            <li><%= link_to "Delete Request", user_request_path(current_user, @user), method: :delete %> </li>
+            <li><%= link_to "Delete Request", request_delete_path(recipient_id: @user, user_id: current_user), method: :delete %> </li>
           <% end %>
           <li><%= link_to("Unfollow", user_follow_path(followee_id: @user.id), method: :delete)  %></li>
         </ul>
@@ -22,4 +22,4 @@
     <% end %>
   </div>
 </div>
-<%= render partial: "user_book", collection: @user_books %>
+<%= render partial: "user_book", collection: @user_books, locals: {user: @user}  %>

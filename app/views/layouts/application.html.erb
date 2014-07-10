@@ -56,7 +56,7 @@
             <li><%= link_to "ToRead", new_user_session_path unless user_signed_in?%></li>
             <li><%= link_to "MyReaders", users_path(only_follow: true) if user_signed_in?%></li>
             <li><%= link_to "MyReaders", new_user_session_path unless user_signed_in?%></li>
-            <li><%= link_to "MyMessages", user_requests_path(current_user) if user_signed_in?%></li>
+            <li><%= link_to "MyMessages", requests_path if user_signed_in?%></li>
             <li><%= link_to "MyMessages", new_user_session_path unless user_signed_in?%></li>
           </ul>
         </li>

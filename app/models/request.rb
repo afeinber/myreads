@@ -4,5 +4,6 @@ class Request < ActiveRecord::Base
 
   validates! :user_id, uniqueness: {scope: :recipient_id}
   validates! :user_id, exclusion: { in: [:recipient_id] }
+  #validates! :user_id, exclusion: { in: self.recipient.follows.map(&:followee_id) }
 
 end

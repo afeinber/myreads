@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   has_many :follows, dependent: :destroy
   has_many :followees, through: :follows
   has_many :requests, dependent: :destroy
-  has_many :recipients, through: :requests
+  #has_many :recipients, through: :requests
   has_many :inverse_requests, class_name: 'Request', foreign_key: 'recipient_id'
 
   devise :database_authenticatable, :registerable,
@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
 
   def is_following?(user)
     self.follows.find_by(followee: user).present?
+  end
+
+  def mutual_follows
+    self.followees.to_a.select { |followee| followee.is_following?(self) }
   end
 
 

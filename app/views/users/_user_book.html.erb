@@ -12,9 +12,24 @@
         <% end %>
       </div>
       <div class="col-md-3">
+      <% if user_signed_in? && current_user.does_not_have(user_book) %>
+        <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
+      <% elsif user_signed_in? %>
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+            Recommend to:
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
-        <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" if user_signed_in? && current_user.does_not_have(user_book) %>
-        <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" unless user_signed_in? %>
+            <% user.mutual_follows.each do |followee| %>
+              <li role="presentation"><%= link_to followee.username, recommendations_path(recipient: followee, book: user_book), method: :post, role: 'menuitem', tabindex: '-1' %> </li>
+            <% end %>
+          </ul>
+        </div>
+      <% else %>
+        <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
+      <% end %>
       </div>
     </div>
   </div>

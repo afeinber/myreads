@@ -6,12 +6,7 @@ feature 'user adds book' do
     visit root_path
     user = create(:user)
     sign_in_as(user)
-    visit root_path
-    fill_in "Search", with: "Harry Potter"
-    click_button 'Search'
-    within(".book", text: "Harry Potter and the Sorcerer's Stone") do
-      click_button 'Add to MyReads'
-    end
+    add_book
     visit root_path
     click_link user.username
     click_link "ToRead"

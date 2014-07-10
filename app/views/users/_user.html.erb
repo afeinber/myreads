@@ -6,7 +6,7 @@
 
         <% if user_signed_in? && !current_user.followees.include?(user) %>
           <%= button_to "Follow", user_follows_path(user), class: "btn btn-primary pull-right" %>
-          <%= button_to("Ignore", user_request_path(user, current_user), method: :delete, class: "btn btn-danger pull-right") if user.requested_user?(current_user) %>
+          <%= button_to("Ignore", request_delete_path(user_id: user.id, recipient_id: current_user.id), method: :delete, class: "btn btn-danger pull-right") if user.requested_user?(current_user) %>
         <% elsif user_signed_in? && current_user != user %>
            <%= button_to "Following", user_follows_path(user), disabled: "disabled", class: "btn btn-success pull-right" %>
         <% end %>
