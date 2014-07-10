@@ -11,7 +11,7 @@ class RecommendationsController < ApplicationController
     redirect_to :back
   end
 
-  def delete
+  def destroy
     @recommendation =
       Recommendation.find_by(
         user: params[:user],
