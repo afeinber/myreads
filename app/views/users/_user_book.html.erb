@@ -16,14 +16,14 @@
           <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
 
         <% elsif user_signed_in? && user == current_user %>
-          <div class="btn-group">
-            <%= button_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default' %>
+          <% if recommendables.count > 0 %> <div class="btn-group"> <% end %>
+            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default', type: 'button' %>
             <% if recommendables.count > 0 %>
-              <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+              <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                 Recommend to:
                 <span class="caret"></span>
-              </button>
+              </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 
                 <% recommendables.each do |recommendable| %>
@@ -31,7 +31,7 @@
                 <% end %>
               </ul>
             </div>
-          </div>
+         <% if recommendables.count > 0 %> </div> <% end %>
         <% end %>
         <% elsif !user_signed_in? %>
           <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
