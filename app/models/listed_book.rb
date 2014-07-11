@@ -26,6 +26,7 @@ class ListedBook < ActiveRecord::Base
 
     ListedBook.transaction do
       relevant_books = self.user.listed_books.where(is_read: self.is_read).order(:order_index)
+      max = relevant_books.map(&:order_index).max
       from = self.order_index
       difference = position - from
       if difference > 0
@@ -35,12 +36,10 @@ class ListedBook < ActiveRecord::Base
         relevant_books = relevant_books[position..from -1]
         relevant_books.each_with_index { |book, i| relevant_books[i].order_index += 1 }
       end
-      self.order_index = relevant_books.map(&:order_index).max + 2
-      #binding.pry
+      self.order_index = max + 2
       self.save
       relevant_books.each(&:save)
       self.order_index = position
-      #binding.pry
       self.save
     end
   end
@@ -59,12 +58,7 @@ class ListedBook < ActiveRecord::Base
     relevant_books = self.user.listed_books.where(is_read: self.is_read).order(:order_index)
     self.move_book(relevant_books.count - 1)
   end
-  # def remove_book
-  #   self.user.listed_books.where(is_read: self.is_read).each_with_index do |book, i|
-  #     self.user.listed_books[i].order_index += 1 if book.order_index >= self.order_index
-  #   end
-  #   self.user.listed_books.each { |book| book.save }
-  # end
+
 
   def delete_recommendations
     self.user.inverse_recommendations.where(book: self.book).each(&:destroy)

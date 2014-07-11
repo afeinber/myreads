@@ -16,7 +16,7 @@
           <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
 
         <% elsif user_signed_in? && user == current_user %>
-          <% if recommendables.count > 0 %> <div class="btn-group"> <% end %>
+          <div class="btn-group">
             <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default' %>
             <% if recommendables.count > 0 %>
               <div class="btn-group">
@@ -31,7 +31,11 @@
                 <% end %>
               </ul>
             </div>
-         <% if recommendables.count > 0 %> </div> <% end %>
+            <%= link_to listed_book_path(user_book, move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span>
+            <% end %>
+            <%= link_to listed_book_path(user_book, move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span>
+            <% end %>
+         </div>
         <% end %>
         <% elsif !user_signed_in? %>
           <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
