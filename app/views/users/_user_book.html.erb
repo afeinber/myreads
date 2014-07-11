@@ -1,7 +1,7 @@
 <div class="row book">
   <div class="panel panel-default">
     <div class="panel-body">
-      <div class="col-md-3">
+      <div class="col-md-2">
         <%= image_tag(user_book.photo, class: "img-responsive", alt: "Responsive image") %>
       </div>
       <div class="col-md-6">
@@ -11,17 +11,17 @@
           <%= @comment.content %> says <%= @comment.user.username %>
         <% end %>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <% if user_signed_in? && current_user.does_not_have(user_book) %>
           <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
 
         <% elsif user_signed_in? && user == current_user %>
           <% if recommendables.count > 0 %> <div class="btn-group"> <% end %>
-            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default', type: 'button' %>
+            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default' %>
             <% if recommendables.count > 0 %>
               <div class="btn-group">
-                <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                Recommend to:
+                <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                Recommend:
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
