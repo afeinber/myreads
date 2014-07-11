@@ -63,5 +63,13 @@ class User < ActiveRecord::Base
     self.recommendations.find_by(book: book, recipient: user).present?
   end
 
+  def books_with_recommendations
+    books = self.listed_books.order(:order_index).to_a.map(&:book)
+    recs = {}
+    books.each do |book|
+      recs[book] = self.mutual_follows.to_a.select { |follow| follow.does_not_have(book) && !self.has_recommended?(book, follow) }
+    end
+    recs
+  end
 
 end

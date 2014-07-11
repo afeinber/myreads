@@ -5,4 +5,5 @@ class Recommendation < ActiveRecord::Base
 
   validates! :user, :book, :recipient, presence: true
   validates! :user_id, uniqueness: {scope: [:book_id, :recipient_id] }
+
 end

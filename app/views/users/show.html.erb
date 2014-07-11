@@ -22,4 +22,7 @@
     <% end %>
   </div>
 </div>
-<%= render partial: "user_book", collection: @user_books, locals: {user: @user}  %>
+
+<% @user_books.each do |user_book, reccomendable| %>
+  <%= render partial: "user_book", locals: { user_book: user_book, recommendable: recommendable } %>
+<% end %>
