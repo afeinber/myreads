@@ -1,13 +1,14 @@
 class ListedBooksController < ApplicationController
 
+
+
   def create
     @book = Book.get_book(params[:asin])
     @listed_book = ListedBook.new
     @listed_book.user = current_user
     @listed_book.book = @book
     @listed_book.order_index = 0
-
-    @listed_book.insert_or_remove_book(inserting: true)
+    @listed_book.insert_book(0, false)
     if @listed_book.save
       flash[:notice] = "#{@listed_book.book.title} added to your MyReads."
     else
@@ -24,9 +25,8 @@ class ListedBooksController < ApplicationController
 
     @listed_book.insert_book(0, params[:is_read])
     @listed_book.is_read = params[:is_read]
+    @listed_book.order_index = 0
     @listed_book.save
     redirect_to :back
   end
-
-
 end

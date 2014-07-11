@@ -13,5 +13,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_read_books = @user.books_with_recommendations(is_read: true)
     @user_unread_books = @user.books_with_recommendations(is_read: false)
+
+
   end
 end
