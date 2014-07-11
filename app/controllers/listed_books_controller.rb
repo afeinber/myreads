@@ -7,7 +7,7 @@ class ListedBooksController < ApplicationController
     @listed_book.book = @book
     @listed_book.order_index = 0
 
-    @listed_book.reorder_books
+    @listed_book.insert_or_remove_book(inserting: true)
     if @listed_book.save
       flash[:notice] = "#{@listed_book.book.title} added to your MyReads."
     else
@@ -17,6 +17,15 @@ class ListedBooksController < ApplicationController
     redirect_to :back
   end
 
+  def update
+    @listed_book = ListedBook.find(params[:id])
+    @listed_book.insert_or_remove_book(inserting: false)
+    @listed_book.is_read = params[:is_read]
+    @listed_book.order_index = 0
+    @listed_book.insert_or_remove_book(inserting: true)
+    @listed_book.save
+    redirect_to :back
+  end
 
 
 end

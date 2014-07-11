@@ -63,9 +63,12 @@ class User < ActiveRecord::Base
     self.recommendations.find_by(book: book, recipient: user).present?
   end
 
-  def books_with_recommendations
-    books = self.listed_books.order(:order_index).to_a.map(&:book)
+  def books_with_recommendations(is_read: is_read)
+
+    #get all the users books that they've read
+    books = self.listed_books.where(is_read: is_read).order(:order_index).to_a.map(&:book)
     recs = {}
+    #Each book has a list of users that they are **allowed** to recommend the book to.
     books.each do |book|
       recs[book] = self.mutual_follows.to_a.select { |follow| follow.does_not_have(book) && !self.has_recommended?(book, follow) }
     end

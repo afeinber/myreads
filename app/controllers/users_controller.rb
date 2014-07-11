@@ -11,9 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_books = @user.books_with_recommendations
-
-    #@user.listed_books.order(:order_index).to_a.map(&:book)
+    @user_read_books = @user.books_with_recommendations(is_read: true)
+    @user_unread_books = @user.books_with_recommendations(is_read: false)
   end
-
 end

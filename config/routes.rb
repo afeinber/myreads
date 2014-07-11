@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   resources :requests, only: [:create, :index]
-  resources :listed_books, only: [:create]
+  resources :listed_books, only: [:create, :update]
   resources :recommendations, only: [:create]
 
   get 'books/:asin', to: 'books#show'

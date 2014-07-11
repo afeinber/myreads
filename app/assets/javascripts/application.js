@@ -16,3 +16,7 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+$(function () {
+  $('#myTab a:last').tab('show')
+})
