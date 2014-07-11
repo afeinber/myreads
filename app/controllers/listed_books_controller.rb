@@ -18,11 +18,12 @@ class ListedBooksController < ApplicationController
   end
 
   def update
-    @listed_book = ListedBook.find(params[:id])
-    @listed_book.insert_or_remove_book(inserting: false)
+    @book = Book.find(params[:id])
+    @listed_book = ListedBook.find_by(user: current_user, book: @book)
+    @listed_book.remove_book
+
+    @listed_book.insert_book(0, params[:is_read])
     @listed_book.is_read = params[:is_read]
-    @listed_book.order_index = 0
-    @listed_book.insert_or_remove_book(inserting: true)
     @listed_book.save
     redirect_to :back
   end

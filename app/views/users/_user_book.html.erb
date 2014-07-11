@@ -14,7 +14,8 @@
       <div class="col-md-3">
       <% if user_signed_in? && current_user.does_not_have(user_book) %>
         <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
-      <% elsif user_signed_in? && recommendables.count > 0 %>
+      <% elsif user_signed_in? && recommendables.count > 0 && user == current_user %>
+
         <div class="dropdown">
           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
             Recommend to:
@@ -27,6 +28,10 @@
             <% end %>
           </ul>
         </div>
+
+      <% elsif user_signed_in? && user == current_user %>
+        <%= button_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default' %>
+
       <% elsif !user_signed_in? %>
         <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
       <% end %>
