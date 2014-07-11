@@ -23,6 +23,6 @@
   </div>
 </div>
 
-<% @user_books.each do |user_book, reccomendable| %>
-  <%= render partial: "user_book", locals: { user_book: user_book, recommendable: recommendable } %>
+<% @user_books.each do |user_book, recommendables| %>
+  <%= render partial: "user_book", locals: { user_book: user_book, recommendables: recommendables } %>
 <% end %>

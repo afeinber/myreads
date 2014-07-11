@@ -19,9 +19,9 @@
       </div>
       <div class="col-md-3">
         <% if defined?(recommender).present? %> <div class="btn-group"> <% end %>
-        <%= button_to "Add to MyReads", listed_books_path(asin: book.asin), class: "btn btn-success" if user_signed_in? && current_user.does_not_have(book) %>
+        <%= link_to "Add to MyReads", listed_books_path(asin: book.asin), method: :post, class: "btn btn-success" if user_signed_in? && current_user.does_not_have(book) %>
         <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-success" unless user_signed_in? %>
-        <%= button_to "Ignore request", recommendation_delete_path(user: recommender, recipient: current_user, book: book), method: :delete, class: "btn btn-danger" if defined?(recommender).present? %>
+        <%= link_to "Ignore request", recommendation_delete_path(user: recommender, recipient: current_user, book: book), method: :delete, class: "btn btn-danger" if defined?(recommender).present? %>
         <% if defined?(recommender).present? %> </div> <% end %>
       </div>
     </div>
