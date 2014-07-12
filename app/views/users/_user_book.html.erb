@@ -48,13 +48,9 @@
   </div>
 </div>
 
-<a href="#test-popsdfup" class="open-popup-link">Show inline popup</a>
-<!--
-Alternative markup with data-mfp-src attribute:
-<a href="mobile-friendly-page.html" data-mfp-src="#test-popup" class="open-popup-link">Show inline popup</a>
--->
 
-<!-- Popup itself -->
+
+<!-- Popup itself. This is a form for comment but it will be going to the ListedBooks controller where the comment will be generated. Then the book will be marked as read. -->
 <div id="test-popup" class="white-popup mfp-hide">
 
   <%= bootstrap_form_for Comment.new, url: listed_book_path(current_user.listed_book_from_book(user_book), is_read: true), method: :patch do |f| %>
@@ -65,6 +61,3 @@ Alternative markup with data-mfp-src attribute:
 </div>
 
 
-
-<br/><br/>
-<button>Dynamically create and show popup</button>
