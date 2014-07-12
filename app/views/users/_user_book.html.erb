@@ -17,7 +17,7 @@
 
         <% elsif user_signed_in? && user == current_user %>
           <div class="btn-group">
-            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(user_book, is_read: !has_read), method: :patch, class: 'btn btn-default' %>
+            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(current_user.listed_book_from_book(user_book), is_read: !has_read), method: :patch, class: 'btn btn-default' %>
             <% if recommendables.count > 0 %>
               <div class="btn-group">
                 <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -31,12 +31,13 @@
                 <% end %>
               </ul>
             </div>
-            <%= link_to listed_book_path(user_book, move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span>
             <% end %>
-            <%= link_to listed_book_path(user_book, move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span>
-            <% end %>
-         </div>
-        <% end %>
+            <% if current_user.listed_book_from_book(user_book).order_index > 0 %>
+              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span>
+              <% end %> <% end %>
+            <% unless current_user.last_listed_book?(current_user.listed_book_from_book(user_book)) %>
+              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span> <% end %> <% end %>
+              </div>
         <% elsif !user_signed_in? %>
           <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
         <% end %>

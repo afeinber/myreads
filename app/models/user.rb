@@ -75,4 +75,12 @@ class User < ActiveRecord::Base
     recs
   end
 
+  def listed_book_from_book(book)
+    self.listed_books.find_by(book: book)
+  end
+
+  def last_listed_book?(listed_book)
+    listed_book.order_index ==
+      self.listed_books.where(is_read: listed_book.is_read).map(&:order_index).max
+  end
 end

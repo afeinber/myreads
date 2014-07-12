@@ -19,10 +19,10 @@ class ListedBooksController < ApplicationController
   end
 
   def update
-    @book = Book.find(params[:id])
-    @listed_book = ListedBook.find_by(user: current_user, book: @book)
 
-    if params[:listed_book].present?
+    @listed_book = ListedBook.find(params[:id])
+
+    if params[:is_read].present?
       @listed_book.remove_book
       @listed_book.insert_book(0, params[:is_read])
       @listed_book.is_read = params[:is_read]

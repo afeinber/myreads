@@ -8,19 +8,6 @@ class ListedBook < ActiveRecord::Base
 
   before_save :delete_recommendations
 
-  # def insert_or_remove_book(inserting: inserting, index: index)
-
-  #   relevant_books = self.user.listed_books.where(is_read: self.is_read)
-  #   relevant_books.each_with_index do |book, i|
-  #     relevant_books[i].order_index += 1 if book.order_index >= index && inserting
-  #     relevant_books[i].order_index -= 1 if book.order_index > index && !inserting
-  #   end
-  #   binding.pry
-  #   relevant_books.each(&:save)
-  # end
-
-
-
   def move_book(position)
     reset_indices
 
