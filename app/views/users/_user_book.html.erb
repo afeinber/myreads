@@ -16,7 +16,7 @@
           <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
 
         <% elsif user_signed_in? && user == current_user %>
-          <div class="btn-group">
+          <% unless (@display_div = recommendables.count == 0 && current_user.listed_book_from_book(user_book).order_index == 0 && current_user.last_listed_book?(current_user.listed_book_from_book(user_book)))  %> <div class="btn-group"> <% end %>
             <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(current_user.listed_book_from_book(user_book), is_read: !has_read), method: :patch, class: 'btn btn-default' %>
             <% if recommendables.count > 0 %>
               <div class="btn-group">
@@ -32,12 +32,13 @@
               </ul>
             </div>
             <% end %>
-            <% if current_user.listed_book_from_book(user_book).order_index > 0 %>
-              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span>
-              <% end %> <% end %>
+
             <% unless current_user.last_listed_book?(current_user.listed_book_from_book(user_book)) %>
-              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span> <% end %> <% end %>
-              </div>
+              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span>
+              <% end %> <% end %>
+            <% if current_user.listed_book_from_book(user_book).order_index > 0 %>
+              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span> <% end %> <% end %>
+              <% unless @display_div %> </div> <% end %>
         <% elsif !user_signed_in? %>
           <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
         <% end %>
