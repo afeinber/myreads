@@ -11,9 +11,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @comment = Comment.new
     @user_read_books = @user.books_with_recommendations(is_read: true)
     @user_unread_books = @user.books_with_recommendations(is_read: false)
-
-
   end
 end

@@ -3,15 +3,11 @@ class CommentsController < ApplicationController
 
 
   def create
-    @comment = Comment.new(comment_params)
-    @comment.user = current_user
-    @book = Book.get_book(params[:asin])
-
-    @comment.book = @book
-
+    @comment = Comment.make_comment(comment_params, current_user, params[:asin])
     flash[:alert] = @comment.errors.full_messages.join(', ') unless @comment.save
     redirect_to :back
   end
+
 
   def destroy
     current_user.comments.find(params[:id]).destroy

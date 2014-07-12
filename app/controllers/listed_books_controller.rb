@@ -21,6 +21,10 @@ class ListedBooksController < ApplicationController
   def update
 
     @listed_book = ListedBook.find(params[:id])
+    if params[:comment].present?
+      @comment = Comment.make_comment(comment_params, current_user, @listed_book.book.asin)
+      @comment.save
+    end
 
     if params[:is_read].present?
       @listed_book.remove_book
@@ -34,5 +38,13 @@ class ListedBooksController < ApplicationController
       @listed_book.move_book(@listed_book.order_index + 1)
     end
     redirect_to :back
+  end
+
+
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end

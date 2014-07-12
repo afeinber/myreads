@@ -5,7 +5,7 @@
         <%= image_tag(user_book.photo, class: "img-responsive", alt: "Responsive image") %>
       </div>
       <div class="col-md-6">
-        <h4> <%= user_book.title %> </h4> <br>
+        <h4> <%= link_to user_book.title, "/books/#{user_book.asin}" %> </h4> <br>
         <%= user_book.authors.map(&:name).join(', ') %> <br>
         <% if (@comment = user_book.most_recent_comment(current_user)).present? %>
           <%= @comment.content %> says <%= @comment.user.username %>
@@ -17,7 +17,8 @@
 
         <% elsif user_signed_in? && user == current_user %>
           <% unless (@display_div = recommendables.count == 0 && current_user.listed_book_from_book(user_book).order_index == 0 && current_user.last_listed_book?(current_user.listed_book_from_book(user_book)))  %> <div class="btn-group"> <% end %>
-            <%= link_to "Mark as " + (has_read ? "unread" : "read"), listed_book_path(current_user.listed_book_from_book(user_book), is_read: !has_read), method: :patch, class: 'btn btn-default' %>
+            <%= link_to "Mark as unread", listed_book_path(current_user.listed_book_from_book(user_book), is_read: false), method: :patch, class: 'btn btn-default' if has_read %>
+            <%unless has_read%><a href="#test-popup" class="open-popup-link btn btn-default">Mark as read</a><%end%>
             <% if recommendables.count > 0 %>
               <div class="btn-group">
                 <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
@@ -46,3 +47,24 @@
     </div>
   </div>
 </div>
+
+<a href="#test-popsdfup" class="open-popup-link">Show inline popup</a>
+<!--
+Alternative markup with data-mfp-src attribute:
+<a href="mobile-friendly-page.html" data-mfp-src="#test-popup" class="open-popup-link">Show inline popup</a>
+-->
+
+<!-- Popup itself -->
+<div id="test-popup" class="white-popup mfp-hide">
+
+  <%= bootstrap_form_for Comment.new, url: listed_book_path(current_user.listed_book_from_book(user_book), is_read: true), method: :patch do |f| %>
+    <%= f.text_field :content, hide_label: :true, placeholder: "Please leave a comment about the book..." %>
+    <%= f.submit %>
+
+  <% end %>
+</div>
+
+
+
+<br/><br/>
+<button>Dynamically create and show popup</button>

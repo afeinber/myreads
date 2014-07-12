@@ -49,6 +49,9 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'rails_12factor', group: :production
 gem 'autoprefixer-rails'
 gem 'devise'
+gem 'magnific-popup-rails'
+gem 'bootstrap_form'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
