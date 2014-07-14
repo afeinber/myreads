@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
     self.follows.find_by(followee: user).present?
   end
 
+  #Only mutual follows may recommend books to each other.
   def mutual_follows
     self.followees.to_a.select { |followee| followee.is_following?(self) }
   end

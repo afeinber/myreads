@@ -8,6 +8,8 @@ class ListedBook < ActiveRecord::Base
 
   before_save :delete_recommendations
 
+
+  #This moves the index of a listed book, to set the priority.
   def move_book(position)
     reset_indices
 
@@ -51,6 +53,7 @@ class ListedBook < ActiveRecord::Base
     self.user.inverse_recommendations.where(book: self.book).each(&:destroy)
   end
 
+  #Keeps everything tidy by starting priorities at 0 and sequentializing them
   def reset_indices
     relevant_books = self.user.listed_books.where(is_read: true).order(:order_index)
     relevant_books.each_with_index { |book, i| relevant_books[i].order_index = i }
