@@ -4,6 +4,10 @@ class UsersController < ApplicationController
   def index
     unless params[:only_follow]
       @users = User.search(params[:search_user])
+      if !@users.present? && params[:search_user].present?
+
+        flash[:alert] = "Your search did not match any users. Please try again."
+      end
     else
       @users = current_user.followees
     end

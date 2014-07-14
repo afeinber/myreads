@@ -6,21 +6,21 @@
       </div>
       <div class="col-md-6">
         <h4> <%= link_to user_book.title, "/books/#{user_book.asin}" %> </h4> <br>
-        <%= user_book.authors.map(&:name).join(', ') %> <br>
+        <h5>By: <%= user_book.authors.map(&:name).join(', ') %> </h5><br>
         <% if (@comment = user_book.most_recent_comment(current_user)).present? %>
           <%= @comment.content %> says <%= @comment.user.username %>
         <% end %>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <% if user_signed_in? && current_user.does_not_have(user_book) %>
           <%= button_to "Add to MyReads", listed_books_path(asin: user_book.asin), class: "btn btn-default" %>
 
         <% elsif user_signed_in? && user == current_user %>
-          <% unless (@display_div = recommendables.count == 0 && current_user.listed_book_from_book(user_book).order_index == 0 && current_user.last_listed_book?(current_user.listed_book_from_book(user_book)))  %> <div class="btn-group"> <% end %>
+          <% unless (@display_div = (recommendables.count == 0)) %> <div class="btn-group"> <% end %>
             <%= link_to "Mark as unread", listed_book_path(current_user.listed_book_from_book(user_book), is_read: false), method: :patch, class: 'btn btn-default' if has_read %>
             <%unless has_read%><a href="#test-popup" class="open-popup-link btn btn-default">Mark as read</a><%end%>
             <% if recommendables.count > 0 %>
-              <div class="btn-group">
+              <div class="btn-group pull-right">
                 <a class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                 Recommend:
                 <span class="caret"></span>
@@ -31,15 +31,19 @@
                   <li role="presentation"><%= link_to(recommendable.username, recommendations_path(recipient: recommendable, book: user_book), method: :post, role: 'menuitem', tabindex: '-1') %> </li>
                 <% end %>
               </ul>
-            </div>
-            <% end %>
+            </div> </div>
 
-            <% unless current_user.last_listed_book?(current_user.listed_book_from_book(user_book)) %>
-              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :down), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-down"></span>
-              <% end %> <% end %>
-            <% if current_user.listed_book_from_book(user_book).order_index > 0 %>
-              <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :up), method: :patch, class: 'btn btn-default'  do %> <span class="glyphicon glyphicon-chevron-up"></span> <% end %> <% end %>
-              <% unless @display_div %> </div> <% end %>
+            <% end %> </div>
+            <div class="col-md-1">
+            <div class="btn-group-vertical">
+
+              <% if current_user.listed_book_from_book(user_book).order_index > 0 %>
+                <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :up), method: :patch, class: 'btn btn-default btn-sm'  do %> <span class="glyphicon glyphicon-chevron-up"></span> <% end %> <% end %>
+                <% unless current_user.last_listed_book?(current_user.listed_book_from_book(user_book)) %>
+                <%= link_to listed_book_path(current_user.listed_book_from_book(user_book), move: :down), method: :patch, class: 'btn btn-default btn-sm'  do %> <span class="glyphicon glyphicon-chevron-down"></span>
+                <% end %> <% end %>
+            </div>
+
         <% elsif !user_signed_in? %>
           <%= button_to "Add to MyReads", new_user_session_path, method: :get, class: "btn btn-default" %>
         <% end %>
@@ -49,7 +53,7 @@
 </div>
 
 
-
+<% if user_signed_in? && user == current_user %>
 <!-- Popup itself. This is a form for comment but it will be going to the ListedBooks controller where the comment will be generated. Then the book will be marked as read. -->
 <div id="test-popup" class="white-popup mfp-hide">
 
@@ -59,5 +63,6 @@
 
   <% end %>
 </div>
+<% end %>
 
 

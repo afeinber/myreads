@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   #has_many :recipients, through: :requests
   has_many :inverse_requests, class_name: 'Request', foreign_key: 'recipient_id', dependent: :destroy
   has_many :inverse_recommendations, class_name: 'Recommendation', foreign_key: 'recipient_id', dependent: :destroy
+  paginates_per 10
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

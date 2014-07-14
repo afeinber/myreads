@@ -1,3 +1,31 @@
+$panel-bg: rgba(255, 255, 255, 0.8);
+$panel-default-border: rgba(0, 0, 0, 0.5);
+$brand-primary: rgba(255,255,255, 0.8);
+$brand-success: #051A49;
+$border-radius-base: 0px;
+$navbar-default-bg: rgba(2, 0, 1, 0.9);
+$state-success-bg: rgba(2,0,1,0.5);
+$state-success-text: rgba(255,255,255, 1.0);
+$close-color: rgba(255,255,255, 0.9);
+$border-radius-large: 0px;
+$input-bg: rgba(255, 255, 255, 1.0);
+$input-color-placeholder: rgba(0,0,0,1);
+$input-border: rgba(0,0,0,0);
+$btn-default-bg: rgba(255, 255, 255, 1.0);
+$btn-default-border: rgba(2, 0, 1, 0.8);
+$headings-color: rgba(255,255,255, 1);
+$panel-inner-border: rgba(0, 0, 0, 0.5);
+$modal-footer-border-color: rgba(0, 0, 0, 0.5);
+$input-border-focus: #EC4E31;
+$text-color: rgba(255,255,255,0.9);
+$nav-tabs-border-color: rgba(255, 255, 255, 0.8);
+$nav-tabs-active-link-hover-color: rgba(0,0,0,1.0);
+$btn-primary-bg: #5cb85c;
+$navbar-default-link-color: #fff;
+$navbar-default-link-hover-color: darken(#fff, 10%);
+$btn-success-color: #fff;
+
+
 @import "bootstrap";
 @import "bootstrap-sprockets";
 
@@ -13,11 +41,34 @@
 
 
 
-.white-popup {
-  position: relative;
-  background: #FFF;
-  padding: 20px;
-  width: auto;
-  max-width: 500px;
-  margin: 20px auto;
+body {
+  background-image: asset-data-url("635211699961249415_CO_BACKGROUND-BOOKS.jpg");
+  background-position: center;
+  background-size: 100%;
+
+}
+
+.panel {
+  color: rgba(2,0,1,1.0);
+}
+.panel h5 {
+  color: rgba(2,0,1,1.0);
+  margin-top: -20px;
+}
+.btn-default {
+  border-width:0;
+}
+.panel a {
+  color: rgba(2,0,1,1.0);
+}
+
+.wantthisblack:hover {
+  color: rgba(0,0,0,1.0);
+}
+.panel .btn-success {
+  color: white;
+}
+
+.panel .btn-danger {
+  color: white;
 }

@@ -69,4 +69,18 @@ class Book < ActiveRecord::Base
 
     book
   end
+
+
+  def self.top_sellers
+    books = []
+    res = Amazon::Ecs.browse_node_lookup('1000', {:response_group => 'TopSellers'})
+    doc = Nokogiri::XML(res.doc.children.to_s)
+    asins = doc.xpath("//ASIN")
+    asins = asins.map(&:text)[0..9]
+    asins.each do |asin|
+      books << Book.from_amazon_element(Amazon::Ecs.item_lookup(asin, :response_group => "Medium").items.first)
+    end
+    books
+  end
+
 end

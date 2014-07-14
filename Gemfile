@@ -51,6 +51,7 @@ gem 'autoprefixer-rails'
 gem 'devise'
 gem 'magnific-popup-rails'
 gem 'bootstrap_form'
+gem 'kaminari'
 
 
 # Use ActiveModel has_secure_password
