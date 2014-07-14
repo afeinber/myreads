@@ -12,7 +12,7 @@
           <!-- I pass in the current user here so that it will only show comments
           from users that the current user is following -->
 
-          <%= @comment.content %> says <%= @comment.user.username %>
+          <%= @comment.content %> says <%= link_to @comment.user.username, @comment.user %>
         <% end %>
         <%= "Recommended by: #{recommender.username}" if defined?(recommender).present? %>
 
