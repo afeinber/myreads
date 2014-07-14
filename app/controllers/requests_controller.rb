@@ -18,8 +18,9 @@ class RequestsController < ApplicationController
   def index
     if current_user.inverse_recommendations.count > 0
 
-      @books = current_user.inverse_recommendations.map(&:book).
-        zip(current_user.inverse_recommendations.map(&:user)).to_h
+      @books = current_user.inverse_recommendations.map(&:book)
+      @books = @books.zip(current_user.inverse_recommendations.map(&:user))
+      @books.to_h
     end
     @users = current_user.inverse_requests.map(&:user)
 
