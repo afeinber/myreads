@@ -14,9 +14,10 @@
 
 
 
-//= require bootstrap-sprockets
+
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require turbolinks
 //= require magnific-popup
 //= require_tree .
