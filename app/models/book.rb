@@ -9,8 +9,10 @@ class Book < ActiveRecord::Base
 
   def self.top_ten(user)
     unless user.present?
+      #gets most commented books for the homepage
       self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}.reverse[0..9]
     else
+      #gets the most recently commented books by the people that the user is following
       comments = []
       user.followees.each { |user| comments += user.comments}
       comments.to_a.sort_by(&:created_at).reverse.map(&:book).uniq
@@ -70,7 +72,7 @@ class Book < ActiveRecord::Base
     book
   end
 
-
+  #This almost never works because Amazon.
   def self.top_sellers
     books = []
     res = Amazon::Ecs.browse_node_lookup('1000', {:response_group => 'TopSellers'})
