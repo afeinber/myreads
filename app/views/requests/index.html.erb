@@ -1,8 +1,9 @@
 <% if @users.count == 0 %> <h3 class="text-center">You have no new follow requests.</h3>
+
 <% else %> <h2 class="text-center">The following users have requested you to follow them:</h2>
   <%= render @users %>
 <% end %>
-<% if @books.present? %> <h3 class="text-center">You have no new recommendations</h3>
+<% unless @books.present? %> <h3 class="text-center">You have no new recommendations</h3>
 <% else %>
   <h2 class="text-center"> You have the following recommendations: </h2>
   <% @books.each do |book, recommender| %>
