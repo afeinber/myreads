@@ -20,6 +20,7 @@ class RequestsController < ApplicationController
 
       @books = current_user.inverse_recommendations.map(&:book)
       @books = @books.zip(current_user.inverse_recommendations.map(&:user))
+      binding.pry
       @books.to_h
     end
     @users = current_user.inverse_requests.map(&:user)
