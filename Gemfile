@@ -53,6 +53,7 @@ gem 'magnific-popup-rails'
 gem 'bootstrap_form'
 gem 'kaminari'
 
+gem "bullet", :group => "development"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
