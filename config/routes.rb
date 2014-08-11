@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :books, only: [:index] do
-    resources :comments, only: [:destroy]
+  resources :books, only: [:index , :show] do
+    resources :comments, only: [:destroy, :create]
   end
   resources :users, only: [:index, :show] do
     resources :follows, only: [:create]
@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   resources :listed_books, only: [:create, :update]
   resources :recommendations, only: [:create]
 
-  get 'books/:asin', to: 'books#show'
+  #get 'books/:asin', to: 'books#show'
   delete 'follows', to: 'follows#destroy', as: 'user_follow'
-  post 'books/comments/:asin', to: 'comments#create', as: 'books_comment'
+  #post 'books/comments/:asin', to: 'comments#create', as: 'books_comment'
   delete 'requests', to: 'requests#destroy', as: 'request_delete'
   delete 'recommendations', to: 'recommendations#destroy', as: 'recommendation_delete'
   root 'books#index'

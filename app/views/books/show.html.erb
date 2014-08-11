@@ -16,7 +16,7 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
-      <%= form_for @comment, url: books_comment_path(@book.asin) do |f| %>
+      <%= form_for @comment, url: book_comments_path(@book) do |f| %>
         <%= f.text_area :content, class: "form-control", placeholder: "Post a Comment" %>
          <div class="panel-footer">
           <%= f.button class: 'btn btn-success' do %>

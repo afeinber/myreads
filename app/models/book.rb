@@ -85,4 +85,8 @@ class Book < ActiveRecord::Base
     books
   end
 
+  def to_param
+    self.asin
+  end
+
 end
