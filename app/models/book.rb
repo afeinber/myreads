@@ -10,7 +10,7 @@ class Book < ActiveRecord::Base
   def self.top_ten(user)
     unless user.present?
       #gets most commented books for the homepage
-      self.all.to_a.sort! { |a,b| a.comments.count <=> b.comments.count}.reverse[0..9]
+      self.all.to_a.sort! { |a,b| a.comments.size <=> b.comments.size}.reverse[0..9]
     else
       #gets the most recently commented books by the people that the user is following
       comments = []

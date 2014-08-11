@@ -11,6 +11,7 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.get_book(params[:id])
+    @book.comments.includes(:user)
     @comment = Comment.new
   end
 end
