@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
 
   def create
-    @comment = Comment.make_comment(comment_params, current_user, params[:asin])
+    @comment = Comment.make_comment(comment_params, current_user, params[:book_id])
     flash[:alert] = @comment.errors.full_messages.join(', ') unless @comment.save
     redirect_to :back
   end

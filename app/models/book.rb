@@ -21,7 +21,7 @@ class Book < ActiveRecord::Base
 
   def most_recent_comment(user)
     unless user.present?
-      self.comments.order(:created_at).last
+      self.comments.includes(:user).order(:created_at).last
     else
       comments = []
       user.followees.each { |user| comments += user.comments}
